@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -41,8 +41,12 @@
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@babel/eslint-parser": "^7.18.9",
+    "@tailwindcss/typography": "^0.5.8",
+    "autoprefixer": "^10.4.13",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.20.0",
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^4.0.0",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4"
   }
 }
