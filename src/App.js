@@ -1,17 +1,46 @@
 import "./App.css";
 import { Component } from "react";
-// import { Markup } from "interweave";
+import { Markup } from "interweave";
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ["hello"],
+      text: [],
     };
     this.setter = this.setter.bind(this);
     this.markItUp = this.markItUp.bind(this);
   }
   markItUp(text) {
-    return text.split("\\n").map((line, key) => <h1 key={key}>{line}</h1>);
+    return text.split("\n").map((line) => {
+      // this is for code tag <code> </code>
+      let length = (line.match(/`/g) || [0]).length;
+      if (length > 2) {
+        let setter = 0;
+        line = line
+          .split(/(?!$)/u)
+          .map((char, index) => {
+            if (char === "`" && setter == 0) {
+              setter = 1;
+              return "<code>";
+            } else if (char === "`" && setter == 1) {
+              setter = 0;
+              return "</code>";
+            } else {
+              return char;
+            }
+          })
+          .join("");
+      }
+
+      // this is for header tag h1 to h6
+      if (line.startsWith("#")) {
+        let length = null;
+        length = (line.match(/^#+/) || [0])[0].length;
+        if (length > 0 && length < 7) {
+          return `<h${length}>${line.slice(length)}</h${length}>`;
+        }
+      }
+    });
   }
   setter(e) {
     this.setState({
@@ -46,8 +75,8 @@ export default class App extends Component {
               className="bg-gray-200  break-all break-words squared shadow-black shadow-lg text-left w-full "
               style={{ minHeight: "10rem" }}
             >
-              {this.state.text}
-              {/* <Markup content={this.state.text} /> */}
+              {/* {this.state.text} */}
+              <Markup content={this.state.text.join("")} />
             </div>
           </div>
         </div>
